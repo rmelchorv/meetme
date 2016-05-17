@@ -1,0 +1,79 @@
+{% load i18n %}
+{% load staticfiles %}
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="{% static 'meetme/assets/font-awesome/css/font-awesome.css' %}" rel="stylesheet" />
+<link href="{% static 'meetme/assets/css/bootstrap.css' %}" rel="stylesheet">
+<link href="{% static 'meetme/assets/css/style.css' %}" rel="stylesheet">
+<link href="{% static 'meetme/assets/css/style-responsive.css' %}" rel="stylesheet">
+
+{% block user_login %}
+<div id="login-page">
+
+<div class="container" -->
+	 
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+<form action="{% url 'meetme:login' %}" method="post" class="form-login">
+{% csrf_token %}
+	<h2 class="form-login-heading">{% trans 'Sign in now' %}</h2>
+	
+	<div class="login-wrap">
+		<input type="text" id="username" name="username" class="form-control" placeholder="{% trans 'User' %}" autofocus>
+		<br>
+		<input type="password" id="password" name="password" class="form-control" placeholder="{% trans 'Password' %}">
+		<label class="checkbox">
+			<span class="pull-right">
+				<a data-toggle="modal" href="#myModal"> {% trans 'Forgot Password?' %}</a>
+			</span>
+		</label>
+		<button class="btn btn-theme btn-block" type="submit"><i class="fa fa-lock"></i> {% trans 'SIGN IN' %}</button>
+		<hr>
+
+		<div class="login-social-link centered">
+		<p>{% trans 'or you can sign in via your social network' %}</p>
+			<button class="btn btn-facebook" href="#" type="submit"><i class="fa fa-facebook"></i> Facebook</button>
+			<button class="btn btn-twitter" href="#" type="submit"><i class="fa fa-twitter"></i> Twitter</button>
+		</div>
+		<div class="registration">
+			{% trans 'D&#39;ont have an account yet?' %}<br/>
+			<a class="" href="#">
+				{% trans 'Create an account' %}
+			</a>
+		</div>
+		
+		<!-- Modal -->
+		<div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal" class="modal fade">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+						<h4 class="modal-title">Forgot Password ?</h4>
+					</div>
+					<div class="modal-body">
+						<p>Enter your e-mail address below to reset your password.</p>
+						<input type="text" name="email" placeholder="Email" autocomplete="off" class="form-control placeholder-no-fix">
+					</div>
+					<div class="modal-footer">
+						<button data-dismiss="modal" class="btn btn-default" type="button">Cancel</button>
+						<button class="btn btn-theme" type="button">Submit</button>
+					</div>
+			  	</div>
+			</div>
+		</div>
+		<!-- modal -->
+
+	</div>
+</form>
+</div>
+
+</div>
+
+<script src="{% static 'meetme/assets/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'meetme/assets/js/jquery.js' %}"></script>
+<script type="text/javascript" src="{% static 'meetme/assets/js/jquery.backstretch.min.js' %}"></script>
+<script>
+	$.backstretch("{% static 'meetme/assets/img/login-bg.jpg' %}", {speed: 500});
+</script>
+{% endblock %}
